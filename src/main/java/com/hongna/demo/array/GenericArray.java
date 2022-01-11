@@ -1,6 +1,9 @@
 package com.hongna.demo.array;
 
-
+/**
+ * 动态数组
+ * @param <T>
+ */
 
 public class GenericArray<T> {
     private T[] data;
