@@ -82,12 +82,24 @@ public class SinglyLinkedList {
     }
 
     //在某个值的节点之前插入
-    public void insertBefore(Node p ,int value){
-
+    public void insertBefore(Node node ,int value){
+        //在某个节点之前截取
+        Node p = head;
+        if (p == null){
+            return;
+        }
+        //在某个节点前面
+        while ( p.getNext() != null || p.getData() != value){
+            if (p.getNext().getData() == value){
+                node.setNext(p.getNext());
+                p.setNext(node);
+            }
+        }
     }
 
     //在某个节点之前插入
-    public void insertBefore(Node p ,Node newNode){
+    public void insertBefore(Node node ,Node newNode){
+
 
     }
 
