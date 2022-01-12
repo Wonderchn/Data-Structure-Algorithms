@@ -35,7 +35,7 @@ public class SinglyLinkedList {
     //表头部插入
     //这种操作将于输入的顺序相反，逆序
     public void insertToHead(int value) {
-        Node newNode = new Node(value, null);
+        Node newNode = createNode(value);
         insertToHead(newNode);
     }
 
@@ -54,7 +54,7 @@ public class SinglyLinkedList {
     //顺序插入
     //链表尾部插入
     public void insertTail(int value){
-        Node node = new Node(value,null);
+        Node node = createNode(value);
         Node p = head;
         if (p == null){
             head = p ;
@@ -66,36 +66,57 @@ public class SinglyLinkedList {
         }
     }
 
-    public void insertAfter(Node p,int value){
-
+    //在某个值节点之后插入
+    public void insertAfter(Node node,int value){
+        //充当指针
+        Node p = head;
+        while (p!=null || p.getData()!=value){
+            p = p.getNext();
+        }
+        if (p == null){
+           return;
+        }else{
+            node.setNext(p.getNext());
+            p.setNext(node);
+        }
     }
 
+    //在某个值的节点之前插入
     public void insertBefore(Node p ,int value){
 
     }
 
+    //在某个节点之前插入
     public void insertBefore(Node p ,Node newNode){
 
     }
 
 
+    //删除某个节点
     public void  deleteByNode(Node p){
 
     }
 
 
+    //删除某个值的节点
     public void deleteByValue(int value){
 
     }
 
+    //展示链表全部结点
     public void printAll() {
-
+        //指针
+        Node p = head;
+        while (p != null) {
+            System.out.print(p.getData() + " ");
+            p = p.getNext();
+        }
+        System.out.println();
     }
 
     public static  Node createNode(int value){
         return new Node(value,null);
     }
-
 }
 
 
