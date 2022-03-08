@@ -13,8 +13,6 @@ public class GenericArray<T> {
     public GenericArray(int capacity){
         data = (T[]) new Object[capacity];
         size = 0;
-
-
     }
     //无参构造方法，默认数组容量为10
     public GenericArray(){
