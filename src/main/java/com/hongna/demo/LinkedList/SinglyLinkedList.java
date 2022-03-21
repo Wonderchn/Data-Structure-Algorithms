@@ -1,135 +1,151 @@
 package com.hongna.demo.LinkedList;
 
-/**
- * 1) 单链表的插入、删除、查找操作
- * 2) 链表中存储的是int 类型的数据
- */
 public class SinglyLinkedList {
-    //这里没有哨兵模式，也就是无头结点链表
     private Node head = null;
 
-    //根据VALUE值进链表节点进行查找
-    public Node findByValue(int value) {
-       //这里需要使用指针来进行链表的操作
+    public Node findByValue(int value){
         Node p = head;
-        //此处比较巧妙，如果遍历到最后一个那个这时我们的p点就是Null，会不进入这个点，所以最后返回null
-        while(p != null && p.getData() !=value){
-            p = p.getNext();
+        while(p != null && p.data != value){
+            p = p.next;
         }
-        return  p;
+        return p;
     }
 
-    //根据索引对链表节点进行查找
-    //根据index来进行查找、
-    public Node findByIndex(int index) {
-        Node p = head ;
+    public Node findByIndex(int index){
+        Node p = head;
         int pos = 0;
-        while ( p != null && pos != index){
-            p = p.getNext();
-            pos ++;
+        while( p!=null && pos!=index){
+            p = p.next;
+            ++pos;
         }
         return p;
     }
 
     //无头结点
     //表头部插入
-    //这种操作将于输入的顺序相反，逆序
-    public void insertToHead(int value) {
-        Node newNode = createNode(value);
+    public void insertToHead(int value){
+        Node newNode = new Node(value, null);
         insertToHead(newNode);
     }
 
-    //插入头结点
-    public void insertToHead(Node newNode) {
-        if (head == null) {
-            head = newNode;
-        } else {
-            newNode.setNext(head);
-            head = newNode;
+
+    public void insertToHead(Node node){
+        if (head == null){
+            head = node;
+        }else{
+            node.next = head;
+            head = node;
         }
     }
-
-
 
     //顺序插入
     //链表尾部插入
     public void insertTail(int value){
-        Node node = createNode(value);
-        Node p = head;
-        if (p == null){
-            head = p ;
+        Node newNode = new Node(value,null);
+        // 空链表，可以插入新节点作为head，也可以不操作
+        if (head == null){
+            head = newNode;
         }else {
-            while (p.getNext()!=null){
-                p = p.getNext();
+            Node q = head;
+            while (q.next != null){
+                q = q.next;
             }
-            p.setNext(node);
+            newNode.next = q.next;
+            q.next = newNode;
         }
     }
 
-    //在某个值节点之后插入
-    public void insertAfter(Node node,int value){
-        //充当指针
-        Node p = head;
-        while (p!=null || p.getData()!=value){
-            p = p.getNext();
-        }
-        if (p == null){
-           return;
-        }else{
-            node.setNext(p.getNext());
-            p.setNext(node);
-        }
+    public void insertAfter(Node p, int value){
+        Node node = new Node(value ,null);
+        insertAfter(p,node);
     }
 
-    //在某个值的节点之前插入
-    public void insertBefore(Node node ,int value){
-        //在某个节点之前截取
-        Node p = head;
+
+    public void insertAfter(Node p, Node newNode){
         if (p == null){
             return;
         }
-        //在某个节点前面
-        while ( p.getNext() != null || p.getData() != value){
-            if (p.getNext().getData() == value){
-                node.setNext(p.getNext());
-                p.setNext(node);
-            }
+        newNode.next = p.next;
+        p.next = newNode;
+    }
+
+    public void insertBefore(Node p ,int value){
+        Node newNode = new Node(value ,null);
+        insertBefore(p,newNode);
+    }
+
+    public void insertBefore(Node p , Node newNode){
+        if (p == null)return;
+        if (head == p){
+            insertToHead(newNode);
+            return;
+        }
+        Node q = head;
+        while(q!=null && q.next != p){
+            q = q.next;
+        }
+
+        if (q == null){
+            return;
+        }
+
+        newNode.next = q;
+        q.next = newNode;
+    }
+
+
+    public void deleteByNode(Node p){
+        if (p == null || head == null)return;
+        if (p == head){
+            head = head.next;
+            return;
+        }
+        Node q = head;
+        while(q != null && q.next !=p){
+            q = q.next;
+        }
+        if ( q == null){
+            return;
+        }
+        q.next = q.next.next;
+    }
+
+    public void deleteByValue(int value){
+        if (head == null) return;
+        Node p = head;
+        Node q = null;
+        while(q != null && q.data != value){
+            q = p;
+            p = p.next;
+        }
+        if (p == null)return;
+        if (q == null){
+            head = head.next;
+        }else {
+            q.next = q.next.next;
         }
     }
 
-    //在某个节点之前插入
-    public void insertBefore(Node node ,Node newNode){
-
-
-    }
-
-
-    //删除某个节点
-    public void  deleteByNode(Node p){
-
-    }
-
-
-    //删除某个值的节点
-    public void deleteByValue(int value){
-
-    }
-
-    //展示链表全部结点
-    public void printAll() {
-        //指针
+    public void printAll(){
         Node p = head;
-        while (p != null) {
-            System.out.print(p.getData() + " ");
-            p = p.getNext();
+        while (p != null){
+            System.out.println(p.data + "");
+            p = p.next;
         }
         System.out.println();
     }
 
-    public static  Node createNode(int value){
-        return new Node(value,null);
+    public static class Node {
+        private int data ;
+        private Node next;
+
+        public Node(int data , Node next){
+            this.data = data;
+            this.next = next;
+        }
+
+        public int getData(){
+            return data;
+        }
     }
 }
-
-
-
