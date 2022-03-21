@@ -135,6 +135,33 @@ public class SinglyLinkedList {
         System.out.println();
     }
 
+
+    //带结点的链表翻转
+    public Node inverseLinkList_head(Node p){
+        //Head 为新建的一个头结点
+        Node Head = new Node(9999,null);
+        // p 为原来链表的头结点，现在Head指向整个链表
+        Head.next = p;
+        /**
+         * 带头结点的链表翻转等价于
+         * 从第二个元素开始重新头插法建立链表
+         */
+        Node cur = p.next;
+        p.next = null;
+        Node next = null;
+
+        while(cur != null){
+            next = cur.next;
+            cur.next = head.next;
+            Head.next = cur;
+            System.out.println("first " + head.data);
+            cur = next;
+        }
+        return head;
+    }
+
+
+    //无头结点的链表翻转
     public static class Node {
         private int data ;
         private Node next;
