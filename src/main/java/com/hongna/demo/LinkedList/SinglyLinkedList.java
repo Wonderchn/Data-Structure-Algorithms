@@ -136,6 +136,75 @@ public class SinglyLinkedList {
     }
 
 
+    //判断true or false
+    public boolean TFResult(Node left, Node right){
+        Node l = left;
+        Node r = right;
+
+        boolean flag=true;
+        System.out.println("left_:"+l.data);
+        System.out.println("right_:"+r.data);
+        while(l != null && r != null){
+            if (l.data == r.data){
+                l = l.next;
+                r = r.next;
+                continue;
+            }else{
+                flag=false;
+                break;
+            }
+
+        }
+
+        System.out.println("什么结果");
+        return flag;
+       /* if (l==null && r==null){
+           System.out.println("什么结果");
+           return true;
+        }else{
+           return false;
+        }*/
+    }
+
+    //判断是否为回文
+    public boolean palindrome() {
+        if (head == null) {
+            return false;
+        } else {
+            System.out.println("开始找到中间节点");
+            Node p = head;
+            Node q = head;
+            if (p.next == null) {
+                System.out.println("只有一个元素");
+                return false;
+            }
+            while( q.next != null && q.next.next != null){
+                p = p.next;
+                q = q.next.next;
+
+            }
+
+            System.out.println("中间节点" + p.data);
+            System.out.println("开始执行奇数节点的回文判断");
+            Node leftLink = null;
+            Node rightLink = null;
+            if(q.next == null){
+                //　p 一定为整个链表的中点，且节点数目为奇数
+                rightLink = p.next;
+                leftLink = inverseLinkList(p).next;
+                System.out.println("左边第一个节点"+leftLink.data);
+                System.out.println("右边第一个节点"+rightLink.data);
+
+            }else{
+                //p q　均为中点
+                rightLink = p.next;
+                leftLink = inverseLinkList(p);
+            }
+            return TFResult(leftLink, rightLink);
+
+        }
+    }
+
     //带结点的链表翻转
     public Node inverseLinkList_head(Node p){
         //Head 为新建的一个头结点
@@ -162,6 +231,22 @@ public class SinglyLinkedList {
 
 
     //无头结点的链表翻转
+    public Node inverseLinkList(Node p){
+        Node pre = null;
+        Node r = head;
+        System.out.println("z---" + r.data);
+        Node next = null;
+        while (r != p){
+            next = r.next;
+            r.next = pre;
+            pre = r;
+            r = next;
+        }
+        r.next = pre;
+        return r;
+    }
+
+
     public static class Node {
         private int data ;
         private Node next;
