@@ -69,7 +69,7 @@ public class GenericArray<T> {
         return  -1;
     }
 
-        //在index位置，插入元素e，时间复杂度O(m+n)
+    //在index位置，插入元素e，时间复杂度O(m+n)
     public void add(int index, T e) {
         checkIndexForAdd(index);
         // 如果当前元素个数等于数组容量，则将数组扩容为原来的2倍
