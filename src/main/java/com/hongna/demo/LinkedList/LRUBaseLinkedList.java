@@ -1,5 +1,12 @@
 package com.hongna.demo.LinkedList;
 
+
+/**
+ * lrubase链表
+ *
+ * @author admin
+ * @date 2022/05/09
+ */
 public class LRUBaseLinkedList<T> {
     /**
      * 默认链表容量

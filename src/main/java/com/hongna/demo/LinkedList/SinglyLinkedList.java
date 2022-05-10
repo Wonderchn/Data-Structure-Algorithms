@@ -1,5 +1,9 @@
 package com.hongna.demo.LinkedList;
 
+/**
+ * 单链表
+ *
+ */
 public class SinglyLinkedList {
     private Node head = null;
 
@@ -226,7 +230,7 @@ public class SinglyLinkedList {
             System.out.println("first " + head.data);
             cur = next;
         }
-        return head;
+        return Head;
     }
 
 
